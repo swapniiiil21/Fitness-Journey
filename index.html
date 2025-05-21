@@ -903,49 +903,194 @@
         </div>
     </section>
 
-    <section id="blogs" class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2>My Fitness Blogs</h2>
-                <p>Sharing what I've learned on my journey</p>
-            </div>
-            
-            <div class="blogs">
-                <div class="blog-card">
-                    <div class="blog-img">
-                        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Overcoming Gym Anxiety">
-                    </div>
-                    <div class="blog-content">
-                        <h3>Overcoming Gym Anxiety</h3>
-                        <p>How I conquered my fear of judgment at the gym and learned to focus on my own journey...</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
-                </div>
-                
-                <div class="blog-card">
-                    <div class="blog-img">
-                        <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Meal Prep Guide">
-                    </div>
-                    <div class="blog-content">
-                        <h3>My Simple Meal Prep Guide</h3>
-                        <p>The exact meal prep routine that helped me stay consistent with my diet without spending hours in the kitchen...</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
-                </div>
-                
-                <div class="blog-card">
-                    <div class="blog-img">
-                        <img src="after3.jpg" alt="Home Workouts">
-                    </div>
-                    <div class="blog-content">
-                        <h3>Effective Home Workouts</h3>
-                        <p>When I couldn't make it to the gym, these home workouts kept me on track with minimal equipment...</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
-                </div>
-            </div>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Fitness Blogs</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+    }
+
+    .section-title h2 {
+      margin-bottom: 0;
+    }
+
+    .section-title p {
+      margin-top: 4px;
+      color: #555;
+    }
+
+    .blogs {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .blog-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-img img {
+      display: block;
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .blog-content {
+      padding: 16px;
+      flex-grow: 1;
+    }
+
+    .blog-content h3 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
+    }
+
+    .blog-content p {
+      margin: 0 0 12px;
+      line-height: 1.4;
+    }
+
+    .more-text {
+      display: none;
+    }
+
+    .read-more {
+      color: #e63946;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <section class="section container">
+    <div class="section-title">
+      <h2>My Fitness Blogs</h2>
+      <p>Sharing what I've learned on my journey</p>
+    </div>
+
+    <div class="blogs">
+
+      <!-- Blog 1 -->
+      <div class="blog-card">
+        <div class="blog-img">
+          <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=1350&q=80" alt="Overcoming Gym Anxiety">
         </div>
-    </section>
+        <div class="blog-content">
+          <h3>Overcoming Gym Anxiety</h3>
+          <p>
+            How I conquered my fear of judgment at the gym and learned to focus on my own journey...
+          </p>
+          <div class="more-text">
+            Walking into a gym for the first time felt like stepping into a spotlight. Surrounded by people lifting weights with confidence,
+            I felt out of place. But then I realized – everyone starts somewhere. I learned to channel that anxiety into motivation.
+            Each workout built not just muscle, but also mental strength. Now, the gym is my safe space, my temple of transformation.
+            You can make it yours too. One step at a time.
+          </div>
+          <a class="read-more">Read More</a>
+        </div>
+      </div>
+
+      <!-- Blog 2 -->
+      <div class="blog-card">
+        <div class="blog-img">
+          <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1350&q=80" alt="Meal Prep Guide">
+        </div>
+        <div class="blog-content">
+          <h3>My Simple Meal Prep Guide</h3>
+          <p>
+            The exact meal prep routine that helped me stay consistent with my diet without spending hours in the kitchen...
+          </p>
+          <div class="more-text">
+            Consistency in your diet starts with preparation. I dedicated just one hour every Sunday to prepare meals in batches: grilled
+            chicken, boiled eggs, stir-fried veggies, oats, and homemade protein laddus. This routine eliminated excuses. No matter
+            how tired I was, good food was always ready. Start small—maybe prep one meal a day for a week. The results will surprise you.
+          </div>
+          <a class="read-more">Read More</a>
+        </div>
+      </div>
+
+      <!-- Blog 3 -->
+      <div class="blog-card">
+        <div class="blog-img">
+          <img src="after3.jpg" alt="Home Workouts">
+        </div>
+        <div class="blog-content">
+          <h3>Effective Home Workouts</h3>
+          <p>
+            When I couldn't make it to the gym, these home workouts kept me on track with minimal equipment...
+          </p>
+          <div class="more-text">
+            Home workouts saved my journey more times than I can count.
+            With just a yoga mat, resistance bands, and determination,
+            I created full-body circuits that burned fat and built muscle.
+            Jump squats, push-ups, planks, mountain climbers — simple yet
+            powerful. Even 20 minutes a day made a difference. Your home
+            can be your gym. No excuses!
+          </div>
+          <a class="read-more">Read More</a>
+        </div>
+      </div>
+
+      <!-- Blog 4 -->
+      <div class="blog-card">
+        <div class="blog-img">
+          <img src="after5.jpg" alt="Build Muscles Without Supplements">
+        </div>
+        <div class="blog-content">
+          <h3>How to Build Muscles Without Supplements</h3>
+          <p>
+            Building muscle without supplements is absolutely possible—and in many cases, it's the better path...
+          </p>
+          <div class="more-text">
+            <p>The idea that you need protein powders or pills to gain muscle is one of the biggest myths in fitness.
+              Supplements may offer convenience, but they’re not essential. You can achieve an incredible transformation naturally by focusing on the basics and mastering them.</p>
+            <p><strong>Let’s start with nutrition:</strong> Your body needs protein to rebuild and grow stronger after every workout. Instead of relying on processed supplements, focus on natural sources like eggs, paneer, chicken, lentils, oats, nuts, dairy, seeds, and legumes.</p>
+            <p>Meal planning plays a crucial role in this journey. Make sure each meal includes a solid source of protein, complex carbohydrates, and healthy fats.</p>
+            <p><strong>Now let’s talk training:</strong> You don’t need fancy equipment or expensive programs. Focus on compound movements like squats, push-ups, pull-ups, deadlifts, and rows.</p>
+            <p>Muscle isn't just built in the gym. It's built in your routine, in your sleep, in your discipline. Rest is not a break from progress—it’s a vital part of it.</p>
+            <p><strong>Train hard. Eat real. Stay patient.</strong> Real strength is built from within.</p>
+          </div>
+          <a class="read-more">Read More</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll('.read-more').forEach(button => {
+      button.addEventListener('click', () => {
+        const moreText = button.previousElementSibling;
+        const isVisible = moreText.style.display === 'block';
+        moreText.style.display = isVisible ? 'none' : 'block';
+        button.textContent = isVisible ? 'Read More' : 'Read Less';
+      });
+    });
+  </script>
+</body>
+</html>
+
 
     <section id="testimonials" class="testimonials">
         <div class="container">
