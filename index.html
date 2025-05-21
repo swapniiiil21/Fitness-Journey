@@ -913,12 +913,47 @@
       font-family: sans-serif;
       background: #f1f5f9;
       margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: linear-gradient(to right, #1e3c72, #2a5298);
       padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #e63946;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #e63946;
     }
 
     .container {
       max-width: 960px;
       margin: auto;
+      padding: 20px;
     }
 
     .section-title h2 {
@@ -991,7 +1026,23 @@
   </style>
 </head>
 <body>
-  <section class="section container">
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="logo">Swapnil <span>Chavan</span></div>
+    <nav>
+      <a href="#">My Journey</a>
+      <a href="#">Transformation</a>
+      <a href="#">Weight Loss Tips</a>
+      <a href="#">Diet Plan</a>
+      <a href="#blogs" class="active">Blogs</a>
+      <a href="#">Success Stories</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Blog Section -->
+  <section id="blogs" class="section container">
     <div class="section-title">
       <h2>My Fitness Blogs</h2>
       <p>Sharing what I've learned on my journey</p>
@@ -1103,6 +1154,7 @@
   </script>
 </body>
 </html>
+
 
     <section id="testimonials" class="testimonials">
         <div class="container">
