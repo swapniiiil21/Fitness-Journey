@@ -104,6 +104,40 @@
             transform: translateY(-2px);
         }
         
+        /* Quick Links at Top */
+        .quick-links {
+            background: rgba(30, 40, 50, 0.8);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .quick-links-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .quick-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .quick-link:hover {
+            color: var(--accent);
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+        
         /* Hero Section with 3D Parallax */
         .hero {
             height: 100vh;
@@ -582,6 +616,77 @@
             border-radius: 0 8px 8px 0;
         }
         
+        /* Blogs Section */
+        .blogs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .blog-card {
+            background-color: rgba(30, 40, 50, 0.6);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        
+        .blog-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .blog-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .blog-card:hover .blog-img img {
+            transform: scale(1.1);
+        }
+        
+        .blog-content {
+            padding: 1.5rem;
+        }
+        
+        .blog-content h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .blog-content p {
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .more-text {
+            display: none;
+            color: rgba(255,255,255,0.8);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .read-more {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .read-more:hover {
+            text-decoration: underline;
+            transform: translateX(5px);
+        }
+        
         /* Testimonials Section */
         .testimonials {
             background: var(--bg-gradient);
@@ -910,23 +1015,6 @@
             50% { transform: translateY(-20px) translateZ(20px); }
         }
         
-        /* Parallax Scrolling Effect */
-        .parallax {
-            transform-style: preserve-3d;
-        }
-        
-        .parallax-layer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background-size: cover;
-            background-position: center;
-            will-change: transform;
-            z-index: -1;
-        }
-        
         /* Responsive Design */
         @media (max-width: 1024px) {
             .hero h1 {
@@ -1027,6 +1115,19 @@
             </nav>
         </div>
     </header>
+
+    <!-- Quick Links Section -->
+    <div class="quick-links">
+        <div class="container quick-links-container">
+            <a href="#journey" class="quick-link">My Journey</a>
+            <a href="#transformation" class="quick-link">Transformation</a>
+            <a href="#tips" class="quick-link">Weight Loss Tips</a>
+            <a href="#diet" class="quick-link">Diet Plan</a>
+            <a href="#blogs" class="quick-link">Blogs</a>
+            <a href="#testimonials" class="quick-link">Success Stories</a>
+            <a href="#contact" class="quick-link">Contact</a>
+        </div>
+    </div>
 
     <section class="hero parallax">
         <div class="hero-content floating">
@@ -1275,10 +1376,10 @@
                     </div>
                 </div>
 
-                <!-- Blog 3 -->
+                <!-- Blog 3 - Updated with new image -->
                 <div class="blog-card floating" style="animation-delay: 0.4s;">
                     <div class="blog-img">
-                        <img src="after3.jpg" alt="Home Workouts">
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1350&q=80" alt="Home Workouts">
                     </div>
                     <div class="blog-content">
                         <h3>Effective Home Workouts</h3>
@@ -1295,10 +1396,10 @@
                     </div>
                 </div>
 
-                <!-- Blog 4 -->
+                <!-- Blog 4 - Updated with new image -->
                 <div class="blog-card floating" style="animation-delay: 0.6s;">
                     <div class="blog-img">
-                        <img src="after5.jpg" alt="Build Muscles Without Supplements">
+                        <img src="https://images.unsplash.com/photo-1535914254981-b5012eebbd15?auto=format&fit=crop&w=1350&q=80" alt="Natural Muscle Building">
                     </div>
                     <div class="blog-content">
                         <h3>How to Build Muscles Without Supplements</h3>
