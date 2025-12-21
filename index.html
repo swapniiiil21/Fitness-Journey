@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swapnil Chavan | My Fitness Journey from 78kg to 53kg</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root {
             --primary: #2c3e50;
@@ -22,18 +23,24 @@
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
         
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
         body {
             background-color: #000;
             color: var(--light);
             line-height: 1.6;
             padding-top: 80px;
-            perspective: 1000px;
+            perspective: 1px; /* Changed from 1000px to 1px for better mobile stability */
+            transform-style: preserve-3d;
             overflow-x: hidden;
         }
         
         /* 3D Header with Depth */
         header {
-            background: var(--bg-gradient);
+            background: rgba(26, 42, 58, 0.95); /* Slightly more opaque for readability */
             color: white;
             padding: 1rem 0;
             position: fixed;
@@ -41,8 +48,6 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transform-style: preserve-3d;
-            transform: translateZ(50px);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
@@ -64,6 +69,7 @@
             font-weight: 700;
             letter-spacing: -0.5px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            z-index: 1001;
         }
         
         .logo span {
@@ -88,7 +94,6 @@
             width: 100%;
             height: 2px;
             background: var(--accent);
-            transform: translateZ(10px);
         }
         
         .nav-links a {
@@ -103,12 +108,21 @@
             color: var(--accent);
             transform: translateY(-2px);
         }
+
+        /* Hamburger Menu Icon */
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
         
         /* Hero Section with 3D Parallax */
         .hero {
             height: 100vh;
+            min-height: 600px;
             background: 
-                linear-gradient(rgba(20, 30, 40, 0.85), rgba(20, 30, 40, 0.85)), 
+                linear-gradient(rgba(20, 30, 40, 0.7), rgba(20, 30, 40, 0.8)), 
                 url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
             display: flex;
             align-items: center;
@@ -118,24 +132,7 @@
             margin-top: -80px;
             overflow: hidden;
             transform-style: preserve-3d;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(231, 76, 60, 0.15) 0%, transparent 70%);
-            transform: translateZ(-50px);
-            opacity: 0;
-            animation: pulse 8s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            0% { opacity: 0; transform: translateZ(-50px) scale(0.9); }
-            100% { opacity: 1; transform: translateZ(-50px) scale(1.1); }
+            z-index: 1;
         }
         
         .hero-content {
@@ -144,13 +141,12 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 2rem;
-            transform-style: preserve-3d;
             animation: float 6s ease-in-out infinite;
         }
         
         @keyframes float {
-            0%, 100% { transform: translateY(0) translateZ(20px); }
-            50% { transform: translateY(-20px) translateZ(20px); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
         .hero h1 {
@@ -158,8 +154,7 @@
             margin-bottom: 1.5rem;
             line-height: 1.2;
             font-weight: 700;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transform: translateZ(30px);
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
         
         .hero p {
@@ -168,7 +163,6 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            transform: translateZ(20px);
             opacity: 0.9;
         }
         
@@ -183,7 +177,6 @@
             font-weight: 600;
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             cursor: pointer;
-            transform-style: preserve-3d;
             box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
             position: relative;
             overflow: hidden;
@@ -202,7 +195,7 @@
         
         .btn:hover {
             background: #c0392b;
-            transform: translateY(-5px) translateZ(10px);
+            transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(231, 76, 60, 0.4);
         }
         
@@ -215,19 +208,18 @@
             justify-content: center;
             gap: 1.5rem;
             margin-top: 2rem;
-            transform: translateZ(30px);
         }
         
         section {
             padding: 6rem 0;
             position: relative;
-            transform-style: preserve-3d;
+            z-index: 2;
+            background-color: #000; /* Ensure background covers parallax gaps */
         }
         
         .section-title {
             text-align: center;
             margin-bottom: 4rem;
-            transform: translateZ(30px);
         }
         
         .section-title h2 {
@@ -264,7 +256,8 @@
         .tip-card,
         .blog-card,
         .transformation-card,
-        .contact-form {
+        .contact-form,
+        .bmi-calculator {
             background: rgba(30, 40, 50, 0.6);
             border-radius: 16px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
@@ -273,7 +266,6 @@
             line-height: 1.8;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
-            transform-style: preserve-3d;
             transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.5s;
             position: relative;
             overflow: hidden;
@@ -285,7 +277,8 @@
         .tip-card::before,
         .blog-card::before,
         .transformation-card::before,
-        .contact-form::before {
+        .contact-form::before,
+        .bmi-calculator::before {
             content: '';
             position: absolute;
             top: -2px;
@@ -305,7 +298,8 @@
         .tip-card:hover::before,
         .blog-card:hover::before,
         .transformation-card:hover::before,
-        .contact-form:hover::before {
+        .contact-form:hover::before,
+        .bmi-calculator:hover::before {
             opacity: 0.3;
         }
         
@@ -315,8 +309,9 @@
         .tip-card:hover,
         .blog-card:hover,
         .transformation-card:hover,
-        .contact-form:hover {
-            transform: translateY(-10px) translateZ(20px);
+        .contact-form:hover,
+        .bmi-calculator:hover {
+            transform: translateY(-10px);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
         }
         
@@ -345,7 +340,6 @@
             margin: 4rem 0;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
-            transform-style: preserve-3d;
         }
         
         .weight-loss-tips h3 {
@@ -354,7 +348,6 @@
             color: white;
             margin-bottom: 3rem;
             font-weight: 700;
-            transform: translateZ(30px);
         }
         
         .weight-loss-tips p {
@@ -363,14 +356,12 @@
             margin-bottom: 2rem;
             font-weight: 600;
             color: var(--accent);
-            transform: translateZ(20px);
         }
         
         .tips-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2.5rem;
-            transform-style: preserve-3d;
         }
         
         .tip-card {
@@ -379,7 +370,6 @@
             padding: 2rem;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            transform-style: preserve-3d;
             position: relative;
             overflow: hidden;
         }
@@ -421,7 +411,6 @@
             justify-content: center;
             gap: 3rem;
             margin-top: 4rem;
-            transform-style: preserve-3d;
         }
         
         .transformation-card {
@@ -433,7 +422,6 @@
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-            transform-style: preserve-3d;
         }
         
         .transformation-img {
@@ -487,7 +475,6 @@
             margin-bottom: 2.5rem;
             padding-bottom: 1.5rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            transform-style: preserve-3d;
         }
         
         .diet-meal:last-child {
@@ -596,7 +583,6 @@
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-            transform-style: preserve-3d;
             position: relative;
         }
         
@@ -646,6 +632,7 @@
             display: inline-flex;
             align-items: center;
             transition: all 0.3s;
+            cursor: pointer;
         }
         
         .read-more:hover {
@@ -684,7 +671,6 @@
             margin: 0 auto;
             position: relative;
             z-index: 2;
-            transform-style: preserve-3d;
         }
         
         .testimonial {
@@ -694,7 +680,6 @@
             border-radius: 16px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
-            transform: translateZ(30px);
         }
         
         .testimonial.active {
@@ -703,8 +688,8 @@
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px) translateZ(30px); }
-            to { opacity: 1; transform: translateY(0) translateZ(30px); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .testimonial p {
@@ -778,7 +763,6 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             max-width: 800px;
             margin: 0 auto;
-            transform-style: preserve-3d;
         }
         
         .success-message {
@@ -791,7 +775,6 @@
             text-align: center;
             border: 1px solid rgba(46, 204, 113, 0.5);
             backdrop-filter: blur(5px);
-            transform: translateZ(20px);
         }
         
         .form-group {
@@ -834,6 +817,264 @@
         .form-group textarea {
             min-height: 180px;
             resize: vertical;
+        }
+        
+        /* BMI Calculator Section */
+        .bmi-calculator {
+            background: rgba(30, 40, 50, 0.6);
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .bmi-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .bmi-input-group {
+            text-align: left;
+        }
+        
+        .bmi-input-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .bmi-calculator input {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .bmi-calculator input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .bmi-calculator input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        
+        #bmi-result {
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(40, 50, 60, 0.6);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            color: rgba(255,255,255,0.9);
+            text-align: left;
+        }
+        
+        .bmi-chart {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(40, 50, 60, 0.4);
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .bmi-chart h4 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .bmi-category {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .bmi-category.active {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        /* AI Chatbot */
+        #ai-chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background: rgba(20, 30, 40, 0.95);
+            border-radius: 12px;
+            overflow: hidden;
+            z-index: 9999;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            display: none;
+            opacity: 0;
+        }
+        
+        #ai-chatbot.open {
+            display: block;
+            opacity: 1;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        #chat-header {
+            background: linear-gradient(135deg, var(--accent), #c0392b);
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), #c0392b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.5);
+            z-index: 9998;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        #chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.7);
+        }
+        
+        #chat-toggle.chat-open {
+            bottom: 320px;
+            transform: rotate(90deg);
+        }
+        
+        #chat-body {
+            height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+            background: rgba(10, 20, 30, 0.9);
+        }
+        
+        .chat-message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 85%;
+            word-wrap: break-word;
+        }
+        
+        .user-message {
+            background: rgba(52, 152, 219, 0.3);
+            border: 1px solid rgba(52, 152, 219, 0.5);
+            margin-left: auto;
+            text-align: left;
+        }
+        
+        .ai-message {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid rgba(231, 76, 60, 0.4);
+            margin-right: auto;
+        }
+        
+        .message-sender {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--accent);
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+        }
+        
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        #chat-input-container {
+            display: flex;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            background: rgba(30, 40, 50, 0.9);
+        }
+        
+        #chat-input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: white;
+            font-size: 14px;
+        }
+        
+        #chat-input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        
+        #send-chat {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        #send-chat:hover {
+            background: #c0392b;
         }
         
         /* Footer */
@@ -977,8 +1218,8 @@
         }
         
         @keyframes floating {
-            0%, 100% { transform: translateY(0) translateZ(20px); }
-            50% { transform: translateY(-20px) translateZ(20px); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
         
         /* Responsive Design */
@@ -1002,10 +1243,32 @@
         }
         
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .hamburger {
+                display: block;
             }
-            
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.3s ease;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 2rem 0;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -1016,6 +1279,14 @@
             
             .contact-form {
                 padding: 2.5rem;
+            }
+            
+            .bmi-calculator {
+                padding: 2rem;
+            }
+            
+            .bmi-inputs {
+                grid-template-columns: 1fr;
             }
             
             .form-group {
@@ -1036,6 +1307,23 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
+            
+            #ai-chatbot {
+                width: 300px;
+                right: 10px;
+                bottom: 10px;
+            }
+            
+            #chat-toggle {
+                width: 50px;
+                height: 50px;
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            #chat-toggle.chat-open {
+                bottom: 280px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1054,12 +1342,21 @@
             .journey-intro,
             .diet-plan,
             .inspiring-blog,
-            .contact-form {
+            .contact-form,
+            .bmi-calculator {
                 padding: 2rem 1.5rem;
             }
             
             .testimonial p {
                 font-size: 1.2rem;
+            }
+            
+            #ai-chatbot {
+                width: 280px;
+            }
+            
+            #chat-toggle.chat-open {
+                bottom: 260px;
             }
         }
     </style>
@@ -1069,12 +1366,16 @@
         <div class="container">
             <nav>
                 <div class="logo">Swapnil <span>Chavan</span></div>
-                <ul class="nav-links">
+                <div class="hamburger" id="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links" id="nav-links">
                     <li><a href="#journey">My Journey</a></li>
                     <li><a href="#transformation">Transformation</a></li>
                     <li><a href="#tips">Weight Loss Tips</a></li>
                     <li><a href="#diet">Diet Plan</a></li>
                     <li><a href="#blogs">Blogs</a></li>
+                    <li><a href="#bmi">BMI Calculator</a></li>
                     <li><a href="#testimonials">Success Stories</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -1120,7 +1421,7 @@
             <div class="transformation-container">
                 <div class="transformation-card floating">
                     <div class="transformation-img">
-                        <img src="before.jpg" alt="Swapnil at 78kg">
+                        <img src="before.jpg" alt="Swapnil at 78kg" onerror="this.src='https://images.unsplash.com/photo-1534367507877-0edd93bd013b?auto=format&fit=crop&w=1350&q=80'">
                     </div>
                     <div class="transformation-content">
                         <h3>Before</h3>
@@ -1130,7 +1431,7 @@
                 
                 <div class="transformation-card floating" style="animation-delay: 0.2s;">
                     <div class="transformation-img">
-                        <img src="after1.jpg" alt="Swapnil at 53kg">
+                        <img src="after1.jpg" alt="Swapnil at 53kg" onerror="this.src='https://images.unsplash.com/photo-1534367507877-0edd93bd013b?auto=format&fit=crop&w=1350&q=80'">
                     </div>
                     <div class="transformation-content">
                         <h3>After</h3>
@@ -1140,7 +1441,7 @@
                 
                 <div class="transformation-card floating" style="animation-delay: 0.4s;">
                     <div class="transformation-img">
-                        <img src="after2.jpg" alt="Swapnil at 53kg">
+                        <img src="after2.jpg" alt="Swapnil at 53kg" onerror="this.src='https://images.unsplash.com/photo-1534367507877-0edd93bd013b?auto=format&fit=crop&w=1350&q=80'">
                     </div>
                     <div class="transformation-content">
                         <h3>After</h3>
@@ -1204,7 +1505,6 @@
         </div>
     </section>
 
-    <!-- Diet Plan Section -->
     <section id="diet" class="section">
         <div class="container">
             <div class="section-title">
@@ -1251,7 +1551,6 @@
         </div>
     </section>
 
-    <!-- Inspiring Blog Section -->
     <section class="section">
         <div class="container">
             <div class="inspiring-blog floating">
@@ -1294,7 +1593,6 @@
             </div>
 
             <div class="blogs">
-                <!-- Blog 1 -->
                 <div class="blog-card floating">
                     <div class="blog-img">
                         <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=1350&q=80" alt="Overcoming Gym Anxiety">
@@ -1312,7 +1610,6 @@
                     </div>
                 </div>
 
-                <!-- Blog 2 -->
                 <div class="blog-card floating" style="animation-delay: 0.2s;">
                     <div class="blog-img">
                         <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1350&q=80" alt="Meal Prep Guide">
@@ -1329,7 +1626,6 @@
                     </div>
                 </div>
 
-                <!-- Blog 3 - Updated with new image -->
                 <div class="blog-card floating" style="animation-delay: 0.4s;">
                     <div class="blog-img">
                         <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1350&q=80" alt="Home Workouts">
@@ -1349,7 +1645,6 @@
                     </div>
                 </div>
 
-                <!-- Blog 4 - Updated with new image -->
                 <div class="blog-card floating" style="animation-delay: 0.6s;">
                     <div class="blog-img">
                         <img src="https://images.unsplash.com/photo-1535914254981-b5012eebbd15?auto=format&fit=crop&w=1350&q=80" alt="Natural Muscle Building">
@@ -1364,22 +1659,72 @@
 
                             <p><strong>What I Learned About Natural Muscle Growth:</strong></p>
                             <ul>
-                              <li><strong>1. Consistency > Quick Fixes</strong><br>Muscles don't grow overnight. A structured routine and patience beat shortcuts every time.</li>
-                              <li><strong>2. Protein is Everywhere</strong><br>You don't need powders. Eggs, lentils, paneer, chickpeas, quinoa, and tofu are excellent natural sources.</li>
-                              <li><strong>3. Recovery is Crucial</strong><br>Sleep, hydration, and rest days help your muscles grow. Don't overlook them.</li>
-                              <li><strong>4. Track Your Progress</strong><br>Even small changes add up. Track reps, weight, energy, or even motivation levels weekly.</li>
+                                <li><strong>1. Consistency > Quick Fixes</strong><br>Muscles don't grow overnight. A structured routine and patience beat shortcuts every time.</li>
+                                <li><strong>2. Protein is Everywhere</strong><br>You don't need powders. Eggs, lentils, paneer, chickpeas, quinoa, and tofu are excellent natural sources.</li>
+                                <li><strong>3. Recovery is Crucial</strong><br>Sleep, hydration, and rest days help your muscles grow. Don't overlook them.</li>
+                                <li><strong>4. Track Your Progress</strong><br>Even small changes add up. Track reps, weight, energy, or even motivation levels weekly.</li>
                             </ul>
 
                             <p><strong>Why I Skipped Supplements:</strong></p>
                             <ul>
-                              <li>I wanted to build naturally before adding any variables.</li>
-                              <li>Many supplements are expensive, unregulated, or unnecessary.</li>
-                              <li>I preferred long-term habits over short-term boosts.</li>
+                                <li>I wanted to build naturally before adding any variables.</li>
+                                <li>Many supplements are expensive, unregulated, or unnecessary.</li>
+                                <li>I preferred long-term habits over short-term boosts.</li>
                             </ul>
 
                             <p><strong>Final Thoughts:</strong> You don't need powders to be powerful. Your discipline, diet, and consistency are more than enough. Add supplements only if needed — and never as a replacement for solid habits.</p>
                         </div>
                         <a class="read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="bmi" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>BMI Calculator</h2>
+                <p>Check your Body Mass Index instantly</p>
+            </div>
+
+            <div class="bmi-calculator floating">
+                <h3>Calculate Your BMI</h3>
+                <p style="margin-bottom: 2rem; color: rgba(255,255,255,0.8);">Enter your weight and height to calculate your Body Mass Index</p>
+                
+                <div class="bmi-inputs">
+                    <div class="bmi-input-group">
+                        <label for="bmi-weight">Weight (kg)</label>
+                        <input type="number" id="bmi-weight" placeholder="e.g., 70" min="30" max="200" step="0.1">
+                    </div>
+                    
+                    <div class="bmi-input-group">
+                        <label for="bmi-height">Height (cm)</label>
+                        <input type="number" id="bmi-height" placeholder="e.g., 175" min="100" max="250" step="0.1">
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="calcBMI()" style="width: 100%;">Calculate BMI</button>
+                
+                <div id="bmi-result"></div>
+                
+                <div class="bmi-chart">
+                    <h4>BMI Categories</h4>
+                    <div class="bmi-category">
+                        <span>Underweight</span>
+                        <span>&lt; 18.5</span>
+                    </div>
+                    <div class="bmi-category">
+                        <span>Normal weight</span>
+                        <span>18.5 – 24.9</span>
+                    </div>
+                    <div class="bmi-category">
+                        <span>Overweight</span>
+                        <span>25 – 29.9</span>
+                    </div>
+                    <div class="bmi-category">
+                        <span>Obese</span>
+                        <span>≥ 30</span>
                     </div>
                 </div>
             </div>
@@ -1429,6 +1774,7 @@
             
             <div class="contact-form floating">
                 <div id="successMessage" class="success-message">
+                    <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
                     Thank you for your message! I'll contact you soon at swapnilchavan211101@gmail.com
                 </div>
                 <form id="contactForm">
@@ -1453,7 +1799,9 @@
                         <textarea id="message" name="message" rows="5" required placeholder="Tell me about your fitness goals"></textarea>
                     </div>
                     
-                    <button type="submit" class="btn" style="display: block; width: 200px; margin: 0 auto;">Send Message</button>
+                    <button type="submit" class="btn" style="display: block; width: 200px; margin: 0 auto;">
+                        <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>Send Message
+                    </button>
                 </form>
             </div>
         </div>
@@ -1475,6 +1823,7 @@
                         <li><a href="#tips">Weight Loss Tips</a></li>
                         <li><a href="#diet">Diet Plan</a></li>
                         <li><a href="#blogs">Blogs</a></li>
+                        <li><a href="#bmi">BMI Calculator</a></li>
                         <li><a href="#testimonials">Success Stories</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
@@ -1503,8 +1852,87 @@
         </div>
     </footer>
 
+    <button id="chat-toggle">
+        <i class="fas fa-robot"></i>
+    </button>
+
+    <div id="ai-chatbot">
+        <div id="chat-header">
+            <span>🤖 AI Fitness Coach</span>
+            <button id="close-chat" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="chat-body">
+            <div class="chat-message ai-message">
+                <div class="message-sender">AI Coach</div>
+                Hello! I'm your AI fitness coach. I can help you with:
+                <br>• Diet & nutrition advice
+                <br>• Workout routines
+                <br>• BMI explanations
+                <br>• Weight loss tips
+                <br>• Muscle building guidance
+                <br><br>Ask me anything!
+            </div>
+        </div>
+        <div id="chat-input-container">
+            <input id="chat-input" placeholder="Ask about diet, workout, BMI...">
+            <button id="send-chat"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
     <script>
-        // Testimonial Slider
+        // ==================== CONFIGURATION ====================
+        const CONFIG = {
+            // OpenAI API Configuration (Optional - for enhanced AI responses)
+            OPENAI_API_KEY: 'YOUR_OPENAI_API_KEY_HERE', // Get from https://platform.openai.com/api-keys
+            OPENAI_ENABLED: false, // Set to true if you want to use OpenAI
+            
+            // EmailJS Configuration
+            EMAILJS_SERVICE_ID: 'YOUR_EMAILJS_SERVICE_ID',
+            EMAILJS_TEMPLATE_ID: 'YOUR_EMAILJS_TEMPLATE_ID',
+            EMAILJS_PUBLIC_KEY: 'YOUR_EMAILJS_PUBLIC_KEY'
+        };
+        
+        // ==================== INITIALIZE EMAILJS ====================
+        if (CONFIG.EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+            emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
+        }
+
+        // ==================== MOBILE MENU TOGGLE ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('hamburger-menu');
+            const navLinks = document.getElementById('nav-links');
+            const navItems = document.querySelectorAll('.nav-links li a');
+
+            if (hamburger) {
+                hamburger.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    const icon = hamburger.querySelector('i');
+                    if (navLinks.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // Close menu when a link is clicked
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+                        const icon = hamburger.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            });
+        });
+        
+        // ==================== TESTIMONIAL SLIDER ====================
         const testimonials = document.querySelectorAll('.testimonial');
         const dots = document.querySelectorAll('.slider-dots button');
         let currentSlide = 0;
@@ -1524,60 +1952,444 @@
             });
         });
         
-        // Auto slide change
+        // Auto slide change every 5 seconds
         setInterval(() => {
             currentSlide = (currentSlide + 1) % testimonials.length;
             showSlide(currentSlide);
         }, 5000);
         
-        // Read More functionality for blogs
+        // ==================== READ MORE FUNCTIONALITY ====================
         document.querySelectorAll('.read-more').forEach(button => {
-            button.addEventListener('click', () => {
-                const moreText = button.previousElementSibling;
+            button.addEventListener('click', function() {
+                const moreText = this.previousElementSibling;
                 const isVisible = moreText.style.display === 'block';
                 moreText.style.display = isVisible ? 'none' : 'block';
-                button.textContent = isVisible ? 'Read More' : 'Read Less';
-            });
-        });
-        
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('successMessage').style.display = 'block';
-            this.reset();
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'none';
-            }, 5000);
-        });
-        
-        // Parallax effect on scroll
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.parallax-layer');
-            
-            parallaxElements.forEach(element => {
-                const speed = parseFloat(element.getAttribute('data-speed'));
-                const yPos = -scrollPosition * speed;
-                element.style.transform = `translate3d(0, ${yPos}px, 0)`;
-            });
-            
-            // Floating elements animation
-            const floatingElements = document.querySelectorAll('.floating');
-            floatingElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
+                this.textContent = isVisible ? 'Read More' : 'Read Less';
                 
-                if (elementTop < windowHeight * 0.8) {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0) translateZ(20px)';
+                if (!isVisible) {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
             });
         });
         
-        // Initial animation trigger
+        // ==================== CONTACT FORM WITH EMAILJS ====================
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            const formData = {
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            try {
+                // If EmailJS is configured, use it
+                if (CONFIG.EMAILJS_SERVICE_ID !== 'YOUR_EMAILJS_SERVICE_ID') {
+                    await emailjs.send(
+                        CONFIG.EMAILJS_SERVICE_ID,
+                        CONFIG.EMAILJS_TEMPLATE_ID,
+                        formData
+                    );
+                } else {
+                    // Fallback: Simulate email sending (for demo)
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                }
+                
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                this.reset();
+                
+                // Scroll to show success message
+                document.getElementById('successMessage').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+                
+                // Reset button
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 5000);
+                }, 500);
+                
+            } catch (error) {
+                console.error('Email sending failed:', error);
+                alert('Failed to send message. Please try again or email directly to swapnilchavan211101@gmail.com');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // ==================== BMI CALCULATOR ====================
+        function calcBMI() {
+            const weight = parseFloat(document.getElementById('bmi-weight').value);
+            const height = parseFloat(document.getElementById('bmi-height').value) / 100;
+            
+            if (!weight || !height || weight <= 0 || height <= 0) {
+                document.getElementById('bmi-result').innerHTML = 
+                    '<p style="color: #e74c3c; text-align: center;"><i class="fas fa-exclamation-circle"></i> Please enter valid weight and height values.</p>';
+                return;
+            }
+            
+            const bmi = (weight / (height * height)).toFixed(1);
+            
+            let category = '';
+            let color = '';
+            let advice = '';
+            
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                color = '#3498db';
+                advice = 'Consider gaining healthy weight through strength training and calorie surplus.';
+            } else if (bmi < 25) {
+                category = 'Normal weight';
+                color = '#2ecc71';
+                advice = 'Great! Maintain your current healthy lifestyle.';
+            } else if (bmi < 30) {
+                category = 'Overweight';
+                color = '#f39c12';
+                advice = 'Consider moderate weight loss through diet and exercise.';
+            } else {
+                category = 'Obese';
+                color = '#e74c3c';
+                advice = 'Consult a healthcare professional for a personalized weight loss plan.';
+            }
+            
+            document.querySelectorAll('.bmi-category').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            const categories = document.querySelectorAll('.bmi-category');
+            if (bmi < 18.5) categories[0].classList.add('active');
+            else if (bmi < 25) categories[1].classList.add('active');
+            else if (bmi < 30) categories[2].classList.add('active');
+            else categories[3].classList.add('active');
+            
+            document.getElementById('bmi-result').innerHTML = `
+                <div style="text-align: center;">
+                    <p style="font-size: 2rem; margin-bottom: 0.5rem; color: ${color};"><strong>${bmi}</strong></p>
+                    <p style="font-size: 1.3rem; margin-bottom: 1rem; font-weight: 600; color: ${color};">${category}</p>
+                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 1rem;">
+                        <i class="fas fa-info-circle" style="margin-right: 5px;"></i>${advice}
+                    </p>
+                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+                        <i class="fas fa-robot" style="margin-right: 5px;"></i>
+                        <strong>Ask the AI Coach</strong> for personalized diet and workout advice!
+                    </p>
+                </div>
+            `;
+            
+            document.getElementById('bmi-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        // ==================== WORKING AI CHATBOT ====================
+        const chatToggle = document.getElementById('chat-toggle');
+        const aiChatbot = document.getElementById('ai-chatbot');
+        const closeChat = document.getElementById('close-chat');
+        const chatBody = document.getElementById('chat-body');
+        const chatInput = document.getElementById('chat-input');
+        const sendChat = document.getElementById('send-chat');
+        
+        let isChatOpen = false;
+        let chatHistory = [];
+        
+        // Initialize chatbot
+        function initChatbot() {
+            // Toggle chatbot on button click
+            chatToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleChatbot();
+            });
+            
+            // Close chatbot button
+            closeChat.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeChatbot();
+            });
+            
+            // Close chatbot when clicking outside
+            document.addEventListener('click', function(e) {
+                if (isChatOpen && 
+                    !aiChatbot.contains(e.target) && 
+                    !chatToggle.contains(e.target)) {
+                    closeChatbot();
+                }
+            });
+            
+            // Send message on Enter key
+            chatInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+            
+            // Send message on button click
+            sendChat.addEventListener('click', sendMessage);
+            
+            console.log('🤖 AI Chatbot initialized successfully!');
+        }
+        
+        function toggleChatbot() {
+            if (!isChatOpen) {
+                openChatbot();
+            } else {
+                closeChatbot();
+            }
+        }
+        
+        function openChatbot() {
+            aiChatbot.classList.add('open');
+            chatToggle.classList.add('chat-open');
+            chatToggle.innerHTML = '<i class="fas fa-chevron-down"></i>';
+            isChatOpen = true;
+            setTimeout(() => {
+                chatInput.focus();
+            }, 300);
+        }
+        
+        function closeChatbot() {
+            aiChatbot.classList.remove('open');
+            chatToggle.classList.remove('chat-open');
+            chatToggle.innerHTML = '<i class="fas fa-robot"></i>';
+            isChatOpen = false;
+        }
+        
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            // Add user message to chat
+            addMessageToChat(message, 'user');
+            chatHistory.push({ role: 'user', content: message });
+            
+            // Clear input
+            chatInput.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            try {
+                let aiResponse;
+                
+                // Use OpenAI if enabled and API key is set
+                if (CONFIG.OPENAI_ENABLED && CONFIG.OPENAI_API_KEY !== 'YOUR_OPENAI_API_KEY_HERE') {
+                    aiResponse = await getOpenAIResponse(message);
+                } else {
+                    // Use local AI responses
+                    aiResponse = getLocalAIResponse(message);
+                }
+                
+                // Remove typing indicator
+                removeTypingIndicator();
+                
+                // Add AI response to chat
+                addMessageToChat(aiResponse, 'ai');
+                chatHistory.push({ role: 'assistant', content: aiResponse });
+                
+            } catch (error) {
+                console.error('AI Error:', error);
+                removeTypingIndicator();
+                
+                // Fallback to local response
+                const fallbackResponse = getLocalAIResponse(message);
+                addMessageToChat(fallbackResponse, 'ai');
+                chatHistory.push({ role: 'assistant', content: fallbackResponse });
+            }
+        }
+        
+        // ==================== OPENAI INTEGRATION ====================
+        async function getOpenAIResponse(message) {
+            try {
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${CONFIG.OPENAI_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-3.5-turbo',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: 'You are a fitness coach assistant based on Swapnil Chavan\'s transformation journey from 78kg to 53kg. Provide helpful, accurate fitness and nutrition advice. Keep responses under 150 words. Be encouraging and professional. Focus on practical tips that worked for Swapnil: high protein diet, carb reduction, consistent workouts, and lifestyle changes.'
+                            },
+                            ...chatHistory.slice(-6),
+                            { role: 'user', content: message }
+                        ],
+                        max_tokens: 200,
+                        temperature: 0.7
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`OpenAI API error: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                return data.choices[0].message.content.trim();
+                
+            } catch (error) {
+                console.error('OpenAI Error:', error);
+                throw error;
+            }
+        }
+        
+        // ==================== LOCAL AI RESPONSES ====================
+        function getLocalAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Enhanced fitness responses
+            const responses = {
+                greeting: [
+                    "Hello! I'm Swapnil's AI Fitness Coach. I can help with diet plans, workout routines, weight loss tips, BMI explanations, and fitness motivation. What would you like to know?",
+                    "Hi there! Ready to transform your fitness? I'm here to help with personalized advice based on Swapnil's journey from 78kg to 53kg!",
+                    "Hey! I'm your AI fitness assistant. Ask me anything about workouts, nutrition, or weight loss strategies!"
+                ],
+                bmi: [
+                    "BMI (Body Mass Index) measures body fat based on height/weight. Categories: Underweight (<18.5), Normal (18.5-24.9), Overweight (25-29.9), Obese (≥30). Use the BMI calculator on this page! Remember, it's a screening tool - muscle mass and other factors also matter.",
+                    "BMI helps assess if your weight is healthy for your height. Calculate yours using our tool above! For personalized advice based on your BMI, just ask!",
+                    "Body Mass Index is a simple calculation: weight(kg) / height(m)². While useful, it doesn't account for muscle mass. Athletes may show as 'overweight' due to muscle!"
+                ],
+                diet: [
+                    "Based on Swapnil's journey: Focus on protein (chicken, eggs, lentils), reduce refined carbs, eat plenty of vegetables, stay hydrated (3-4L water daily). Sample day: Breakfast: Oats + eggs, Lunch: Chicken + veggies, Dinner: Fish + salad. Have planned cheat meals weekly!",
+                    "Swapnil's diet strategy: High protein (160g daily), moderate carbs, healthy fats. Eat every 3-4 hours. Drink water before meals. Prioritize whole foods over processed. Track your intake for best results!",
+                    "Nutrition tips: 1) Protein with every meal 2) Fill half your plate with veggies 3) Choose complex carbs (oats, brown rice) 4) Healthy fats (nuts, avocado) 5) Stay hydrated 6) Plan your meals ahead"
+                ],
+                workout: [
+                    "Swapnil's workout plan: 3-4 days strength training (squats, push-ups, rows), 2-3 days cardio (30 mins). Start with bodyweight exercises, progress to weights. Key: Progressive overload - gradually increase weight/reps. Rest 48 hours between training same muscles.",
+                    "Beginner routine: Monday: Upper body, Tuesday: Cardio, Wednesday: Lower body, Thursday: Active rest, Friday: Full body, Weekend: Recovery. Start with 3 days/week, build to 5.",
+                    "Effective workouts: Compound exercises first (squats, deadlifts, bench press). 3-4 sets of 8-12 reps. Cardio: 150 mins moderate or 75 mins vigorous weekly. Consistency > intensity!"
+                ],
+                weightLoss: [
+                    "Swapnil lost 25kg by: 1) Calorie deficit (eat 300-500 calories less than maintenance) 2) High protein diet (1.6g per kg body weight) 3) Daily activity 4) Strength training 3x/week 5) Reduced sugar 6) Consistency over perfection. Track progress weekly!",
+                    "Weight loss formula: Calories in < Calories out. Tips: 1) Eat protein first 2) Walk 10k steps daily 3) Strength train to preserve muscle 4) Sleep 7-8 hours 5) Manage stress 6) Be patient - aim for 0.5-1kg loss per week",
+                    "Fat loss strategies: 1) Create 20% calorie deficit 2) Protein at 2g/kg 3) Strength training 3x/week 4) Cardio 150 mins/week 5) Sleep well 6) Stay consistent for 12+ weeks"
+                ],
+                muscle: [
+                    "For muscle building: Aim for 1.6-2.2g protein per kg body weight daily. Sources: chicken, fish, eggs, paneer, lentils. Train each muscle 2-3x/week with progressive overload. Get 7-8 hours sleep for recovery. Supplements optional - focus on whole foods first.",
+                    "Muscle growth requires: 1) Progressive overload 2) Adequate protein 3) Calorie surplus (300-500 above maintenance) 4) Recovery (sleep!) 5) Consistency. Track your lifts - aim to increase weight/reps weekly.",
+                    "Build muscle naturally: 1) Compound lifts (squats, bench, rows) 2) 8-12 rep range 3) Protein every 3-4 hours 4) Rest days between workouts 5) Patience - visible results take 8-12 weeks"
+                ],
+                cardio: [
+                    "Cardio tips: Start with 20-30 mins brisk walking/jogging 3-4x/week. Best times: morning fasted for fat burning, or post-workout. Mix HIIT (high intensity interval training) and LISS (low intensity steady state). Increase duration gradually by 10% weekly.",
+                    "Effective cardio: 1) HIIT: 30 secs sprint, 60 secs walk x 10 2) LISS: 45-60 mins brisk walk 3) Mix it up: cycling, swimming, dancing 4) Track heart rate: aim for 70-85% of max (220 - age)",
+                    "Cardio for fat loss: Fasted morning cardio burns more fat. Post-workout cardio uses glycogen stores. 150 mins moderate or 75 mins vigorous weekly. Listen to your body!"
+                ],
+                beginner: [
+                    "Beginner plan: Week 1-2: Walk 20 mins daily + bodyweight exercises (squats, push-ups, planks). Week 3-4: Add light weights + increase cardio to 30 mins. Focus on form, not weight. Record workouts to track progress. Consistency > intensity!",
+                    "Starting out? 1) Walk daily 2) Bodyweight exercises 3x/week 3) Learn proper form 4) Track food intake 5) Set realistic goals 6) Celebrate small wins 7) Don't compare - everyone starts somewhere!",
+                    "First month: Focus on building habits, not transformations. 1) Exercise 3x/week 2) Drink more water 3) Add veggies to meals 4) Sleep 7+ hours 5) Be consistent - even 15 mins counts!"
+                ],
+                motivation: [
+                    "Swapnil's motivation tips: 1) Set SMART goals (Specific, Measurable, Achievable, Relevant, Time-bound) 2) Track progress with photos/measurements 3) Find accountability partner 4) Celebrate small wins 5) Remember your 'why' 6) Create routines, not just workouts.",
+                    "Stay motivated: 1) Track your progress 2) Reward milestones 3) Find workout buddy 4) Mix up routines 5) Focus on how you feel, not just looks 6) Remember why you started 7) Progress photos every 2 weeks",
+                    "Motivation fades, discipline stays. Create habits: 1) Schedule workouts 2) Prep meals 3) Sleep routine 4) Morning ritual 5) Accountability system 6) Visualize success 7) One day at a time!"
+                ],
+                default: [
+                    "I'm here to help with fitness advice! Ask me about: diet/nutrition plans, workout routines, weight loss strategies, muscle building, BMI calculations, or fitness motivation. You can also use the BMI calculator on this page!",
+                    "I specialize in fitness coaching based on Swapnil's transformation journey. Try asking about: 'How do I lose weight?' or 'What's a good beginner workout?' or 'How much protein do I need?'",
+                    "As your AI fitness coach, I can help with: 1) Personalized diet advice 2) Workout plans 3) Weight loss strategies 4) Muscle building tips 5) Motivation techniques 6) BMI explanations. What's your fitness goal?"
+                ]
+            };
+            
+            // Determine response category
+            let category = 'default';
+            
+            if (lowerMessage.includes('hi') || lowerMessage.includes('hello') || lowerMessage.includes('hey')) {
+                category = 'greeting';
+            } else if (lowerMessage.includes('bmi') || lowerMessage.includes('body mass')) {
+                category = 'bmi';
+            } else if (lowerMessage.includes('diet') || lowerMessage.includes('nutrition') || lowerMessage.includes('meal') || lowerMessage.includes('eat')) {
+                category = 'diet';
+            } else if (lowerMessage.includes('workout') || lowerMessage.includes('exercise') || lowerMessage.includes('gym') || lowerMessage.includes('train')) {
+                category = 'workout';
+            } else if (lowerMessage.includes('lose weight') || lowerMessage.includes('weight loss') || lowerMessage.includes('fat loss') || lowerMessage.includes('slim')) {
+                category = 'weightLoss';
+            } else if (lowerMessage.includes('protein') || lowerMessage.includes('muscle') || lowerMessage.includes('build') || lowerMessage.includes('gain')) {
+                category = 'muscle';
+            } else if (lowerMessage.includes('cardio') || lowerMessage.includes('running') || lowerMessage.includes('walking') || lowerMessage.includes('jog')) {
+                category = 'cardio';
+            } else if (lowerMessage.includes('beginner') || lowerMessage.includes('start') || lowerMessage.includes('new') || lowerMessage.includes('first')) {
+                category = 'beginner';
+            } else if (lowerMessage.includes('motivation') || lowerMessage.includes('consist') || lowerMessage.includes('stick') || lowerMessage.includes('quit')) {
+                category = 'motivation';
+            }
+            
+            // Get random response from category
+            const categoryResponses = responses[category];
+            const randomIndex = Math.floor(Math.random() * categoryResponses.length);
+            
+            return categoryResponses[randomIndex];
+        }
+        
+        // Add message to chat UI
+        function addMessageToChat(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `chat-message ${sender}-message`;
+            
+            const senderName = sender === 'user' ? 'You' : 'AI Coach';
+            messageElement.innerHTML = `
+                <div class="message-sender">${senderName}</div>
+                ${message}
+            `;
+            
+            chatBody.appendChild(messageElement);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+        
+        function showTypingIndicator() {
+            const typingElement = document.createElement('div');
+            typingElement.className = 'typing-indicator';
+            typingElement.id = 'typing-indicator';
+            typingElement.innerHTML = `
+                <div class="message-sender">AI Coach</div>
+                <span></span><span></span><span></span>
+            `;
+            chatBody.appendChild(typingElement);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+        
+        function removeTypingIndicator() {
+            const typingElement = document.getElementById('typing-indicator');
+            if (typingElement) {
+                typingElement.remove();
+            }
+        }
+        
+        // ==================== SMOOTH SCROLLING ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // ==================== INITIALIZE EVERYTHING ====================
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize chatbot
+            initChatbot();
+            
+            // Add floating animations
             const floatingElements = document.querySelectorAll('.floating');
             floatingElements.forEach((element, index) => {
                 element.style.opacity = '0';
@@ -1589,6 +2401,21 @@
                     element.style.transform = 'translateY(0) translateZ(20px)';
                 }, 100);
             });
+            
+            // Image fallback
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('error', function() {
+                    if (this.src.includes('before.jpg') || this.src.includes('after')) {
+                        this.src = 'https://images.unsplash.com/photo-1534367507877-0edd93bd013b?auto=format&fit=crop&w=1350&q=80';
+                    }
+                });
+            });
+            
+            console.log('🚀 Website Loaded Successfully!');
+            console.log('🤖 AI Chatbot Ready - Click the robot icon!');
+            console.log('📧 EmailJS Configured:', CONFIG.EMAILJS_SERVICE_ID !== 'YOUR_EMAILJS_SERVICE_ID');
+            console.log('🧠 OpenAI Enabled:', CONFIG.OPENAI_ENABLED);
+            console.log('💡 TIP: Add your API keys in the CONFIG object to enable full functionality!');
         });
     </script>
 </body>
