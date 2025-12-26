@@ -1361,27 +1361,68 @@
         }
 
             /* iOS Install Banner */
-    #ios-install-banner {
-        background: #ffffff;
-        color: #000000;
-        text-align: center;
-        padding: 10px 40px 10px 10px;
-        font-size: 14px;
-        border-bottom: 1px solid #ddd;
-        position: sticky;
-        top: 0;
-        z-index: 9999;
-    }
-    
-    #close-ios-banner {
-        position: absolute;
-        right: 15px;
-        top: 8px;
-        cursor: pointer;
-        font-weight: bold;
-    }
+            /* iOS Install Banner */
+        #ios-install-banner {
+            background: #ffffff;
+            color: #000000;
+            text-align: center;
+            padding: 10px 40px 10px 10px;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+        }
+        
+        #close-ios-banner {
+            position: absolute;
+            right: 15px;
+            top: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        /* Sticky CTA */
+        #sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e74c3c;
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            z-index: 9999;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+        
+        /* Mobile only */
+        @media (min-width: 768px) {
+            #sticky-cta {
+                display: none;
+            }
+        }
+        
+        /* Success Toast */
+        #success-toast {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2ecc71;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: none;
+            z-index: 9999;
+        }
+        
+        </style>
 
-    </style>
     <!-- PWA / APP SUPPORT -->
      <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#e74c3c">
@@ -2487,6 +2528,16 @@
         }
     });
     </script>
+
+    <!-- Success Toast -->
+<div id="success-toast">
+    ✅ Thanks! I’ll reach out to you soon.
+</div>
+
+<!-- Sticky CTA Button -->
+<a href="#contact" id="sticky-cta">
+    Get Free Plan
+</a>
 
 
 </body>
