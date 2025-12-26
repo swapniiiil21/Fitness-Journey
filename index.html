@@ -1360,6 +1360,15 @@
             }
         }
     </style>
+    <!-- PWA / APP SUPPORT -->
+     <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#e74c3c">
+    
+    <!-- iOS PWA SUPPORT -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Fitness Journey">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
 </head>
 <body>
     <header>
@@ -2419,5 +2428,16 @@
             console.log('💡 TIP: Add your API keys in the CONFIG object to enable full functionality!');
         });
     </script>
+    <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("service-worker.js")
+          .then(() => console.log("✅ PWA Service Worker Registered"))
+          .catch(err => console.error("❌ Service Worker Error", err));
+      });
+    }
+    </script>
+
 </body>
 </html>
