@@ -1359,6 +1359,28 @@
                 bottom: 260px;
             }
         }
+
+            /* iOS Install Banner */
+    #ios-install-banner {
+        background: #ffffff;
+        color: #000000;
+        text-align: center;
+        padding: 10px 40px 10px 10px;
+        font-size: 14px;
+        border-bottom: 1px solid #ddd;
+        position: sticky;
+        top: 0;
+        z-index: 9999;
+    }
+    
+    #close-ios-banner {
+        position: absolute;
+        right: 15px;
+        top: 8px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
     </style>
     <!-- PWA / APP SUPPORT -->
      <link rel="manifest" href="manifest.json">
@@ -1371,6 +1393,11 @@
     
 </head>
 <body>
+        <!-- iOS Install Guide -->
+    <div id="ios-install-banner">
+        📱 On iPhone: Tap <strong>Share</strong> → <strong>Add to Home Screen</strong>
+        <span id="close-ios-banner">✕</span>
+    </div>
     <header>
         <div class="container">
             <nav>
