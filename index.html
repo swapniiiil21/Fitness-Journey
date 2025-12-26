@@ -2475,6 +2475,19 @@
       });
     }
     </script>
+        <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const banner = document.getElementById("ios-install-banner");
+        const closeBtn = document.getElementById("close-ios-banner");
+    
+        if (closeBtn) {
+            closeBtn.addEventListener("click", () => {
+                banner.style.display = "none";
+            });
+        }
+    });
+    </script>
+
 
 </body>
 </html>
