@@ -2481,130 +2481,226 @@
         }
         
         // ==================== LOCAL AI RESPONSES ====================
+
         function getLocalAIResponse(message) {
           const msg = message.toLowerCase().trim();
-          const bmi = getLastBMI();
-          const bf = getLastBodyFat();
         
-          const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+          /* ---------- GREETING ---------- */
+          if (/^(hi|hello|hey|hii|heyy)/.test(msg)) {
+            return `
+        Hey 👋  
+        I’m your AI fitness coach, built around Swapnil’s real transformation.
         
-          /* ---------------- GREETINGS ---------------- */
-          if (/^(hi|hello|hey|yo|hii|heyy|hola|sup|what's up)/.test(msg)) {
-            return pick([
-              "Hey 👋 How can I help you with your fitness today?",
-              "Hi! 😊 What are you working on right now — fat loss, muscle gain, or overall fitness?",
-              "Hello! I'm here to help you train smarter, not harder. What’s on your mind?",
-              "Hey there! Ready to level up your fitness? Ask me anything.",
-              "Hi! Think of me as your digital fitness coach — how can I help?"
-            ]);
+        You can ask me about:
+        • Diet & nutrition  
+        • Muscle building  
+        • Fat loss  
+        • BMI & body fat  
+        • Beginner routines  
+        
+        What’s your goal right now?
+        `;
           }
         
-          /* ---------------- SMALL TALK ---------------- */
-          if (/how are you|how r u|how you doing/.test(msg)) {
-            return pick([
-              "I'm doing great — thanks for asking! 💪 How are *you* feeling today?",
-              "All good here! Ready to help you stay consistent. How’s your energy today?",
-              "Feeling motivated! 😄 What’s your fitness goal right now?"
-            ]);
+          /* ---------- DIET & NUTRITION ---------- */
+          if (/diet|nutrition|food|eat/.test(msg)) {
+            return `
+        Diet is **80% of your results**, not workouts.
+        
+        Here’s what actually works (based on Swapnil’s journey):
+        
+        🔹 **Protein first**  
+        Protein preserves muscle, controls hunger, and boosts fat loss.
+        
+        🔹 **Carbs are not evil**  
+        Carbs should match activity.  
+        Training day → more carbs  
+        Rest day → fewer carbs
+        
+        🔹 **Simple foods win**  
+        Chicken, eggs, oats, rice, fruits, vegetables — no fancy stuff.
+        
+        🔹 **Consistency > perfection**  
+        Eating 80% clean daily beats extreme dieting for 1 week.
+        
+        If you want, tell me:
+        • fat loss diet  
+        • muscle gain diet  
+        • veg or non-veg  
+        `;
           }
         
-          /* ---------------- GOODBYE ---------------- */
-          if (/bye|goodbye|see you|later|gtg|talk later/.test(msg)) {
-            return pick([
-              "Bye! 👋 Stay consistent and come back anytime you need guidance.",
-              "Take care! Remember — small steps daily make big changes.",
-              "See you! 💪 Keep pushing, even on low-motivation days.",
-              "Goodbye! Don’t forget to hydrate and move today 😄"
-            ]);
+          /* ---------- SWAPNIL DIET ---------- */
+          if (/swapnil.*diet|your diet|swapnil diet/.test(msg)) {
+            return `
+        This is the **exact style of diet Swapnil followed** 👇
+        
+        🍳 **Breakfast**  
+        Oats + egg whites + 2 whole eggs  
+        → Energy + protein without heavy calories
+        
+        🥤 **Post workout**  
+        Whey protein  
+        → Fast muscle recovery
+        
+        🍗 **Lunch**  
+        200g chicken + 1 chapati + egg whites  
+        → High protein, controlled carbs
+        
+        🍽 **Dinner**  
+        Same as lunch (simple & repeatable)
+        
+        ⚠️ Important:
+        This worked because calories were controlled and protein was high.
+        Not magic — just discipline.
+        
+        Want this adjusted for **your body weight**?
+        `;
           }
         
-          /* ---------------- THANK YOU ---------------- */
-          if (/thanks|thank you|thx/.test(msg)) {
-            return pick([
-              "You’re welcome! 😊 Happy to help anytime.",
-              "Anytime! Let me know if you need more guidance.",
-              "Glad I could help — keep going 💪"
-            ]);
+          /* ---------- WEIGHT LOSS ---------- */
+          if (/weight loss|fat loss|lose weight|cut/.test(msg)) {
+            return `
+        Fat loss is simple — but not easy.
+        
+        Here’s the truth 👇
+        
+        🔥 **Calorie deficit**  
+        You must burn more than you eat (small deficit only).
+        
+        🥩 **High protein**  
+        Prevents muscle loss and keeps metabolism high.
+        
+        🏋️ **Strength training**  
+        Fat loss without weights = skinny + weak.
+        
+        🚶 **Daily movement**  
+        Steps matter more than extreme cardio.
+        
+        ⚠️ Avoid:
+        • Crash dieting  
+        • Skipping meals  
+        • Over-cardio  
+        
+        Want a **daily fat-loss routine**?
+        `;
           }
         
-          /* ---------------- BMI ---------------- */
+          /* ---------- MUSCLE BUILDING ---------- */
+          if (/muscle build|build muscle|gain muscle|bulking/.test(msg)) {
+            return `
+        Muscle building requires **patience + structure**.
+        
+        What actually builds muscle 👇
+        
+        🏋️ **Progressive overload**  
+        Try to lift slightly heavier or do more reps weekly.
+        
+        🍽 **Enough calories**  
+        No food = no muscle.
+        
+        🥩 **Protein intake**  
+        1.6–2g per kg bodyweight.
+        
+        😴 **Recovery**  
+        Muscles grow when you rest, not when you train.
+        
+        Muscle gain is slow — but predictable.
+        
+        Tell me:
+        • Home or gym?  
+        • Beginner or experienced?
+        `;
+          }
+        
+          /* ---------- MUSCLE WITHOUT LOSING WEIGHT ---------- */
+          if (/muscle.*without.*weight|maintain weight|recomposition/.test(msg)) {
+            return `
+        What you’re asking is **BODY RECOMPOSITION** 💡  
+        (lose fat + gain muscle at the same weight)
+        
+        How to do it correctly 👇
+        
+        ✔ Eat at **maintenance calories**  
+        ✔ High protein (2g/kg)  
+        ✔ Strength train 4x/week  
+        ✔ Limit excessive cardio  
+        
+        Result:
+        Fat ↓  
+        Muscle ↑  
+        Weight ≈ same  
+        
+        This is exactly how beginners should train.
+        
+        Want a **recomp workout split**?
+        `;
+          }
+        
+          /* ---------- BMI ---------- */
           if (msg.includes("bmi")) {
-            if (bmi) {
-              return `Your BMI is ${bmi}. BMI gives a rough idea, but body fat % tells the real story. Want advice based on your numbers?`;
-            }
-            return "BMI compares weight to height. Normal range is 18.5–24.9. Calculate yours above and I’ll explain it.";
+            return `
+        BMI = weight ÷ height²
+        
+        📊 Normal range: **18.5 – 24.9**
+        
+        But listen carefully 👇  
+        BMI doesn’t show:
+        • muscle mass  
+        • fat distribution  
+        • fitness level  
+        
+        That’s why **body fat % is better**.
+        
+        Calculate BMI above — I’ll explain what it means for YOU.
+        `;
           }
         
-          /* ---------------- BODY FAT ---------------- */
-          if (msg.includes("body fat")) {
-            if (bf) {
-              return `Your estimated body fat is ${bf}%. That visually falls into the ${getBFCategory(bf)} range. Want to move to a leaner category?`;
-            }
-            return "Body fat % shows how lean you actually are. It’s more accurate than BMI. Use the calculator above and ask me again.";
-          }
-        
-          /* ---------------- FAT LOSS ---------------- */
-          if (/fat loss|lose fat|cut|weight loss|slim/.test(msg)) {
-            return pick([
-              "Fat loss comes down to a calorie deficit, high protein, strength training, and patience.",
-              "You don’t need extreme dieting. Focus on protein, steps, sleep, and lifting weights.",
-              "Fat loss works best when habits are sustainable. Want a simple daily routine?"
-            ]);
-          }
-        
-          /* ---------------- MUSCLE ---------------- */
-          if (/muscle|gain|bulk|build muscle/.test(msg)) {
-            return pick([
-              "To build muscle: progressive overload, enough food, enough protein, and recovery.",
-              "Lift weights consistently and aim to get slightly stronger every week.",
-              "Muscle growth is slow but predictable — stay patient and track progress."
-            ]);
-          }
-        
-          /* ---------------- DIET ---------------- */
-          if (/diet|eat|food|nutrition/.test(msg)) {
-            return pick([
-              "Keep diet simple: protein first, vegetables second, carbs based on activity.",
-              "You don’t need fancy foods — consistency matters more than perfection.",
-              "If hunger is an issue, protein + fiber + water helps a lot."
-            ]);
-          }
-        
-          /* ---------------- WORKOUT ---------------- */
+          /* ---------- WORKOUT ---------- */
           if (/workout|exercise|gym|training/.test(msg)) {
-            return pick([
-              "Strength training 3–4x/week + daily movement works for most people.",
-              "Even 20–30 minutes of focused training is enough if done consistently.",
-              "Compound exercises give the most results in the least time."
-            ]);
+            return `
+        You don’t need fancy workouts.
+        
+        A smart routine looks like this 👇
+        
+        🏋️ Strength training: 3–4 days  
+        🚶 Steps: 7–10k daily  
+        ⏱ Session: 45–60 minutes  
+        
+        Focus on:
+        • Squats  
+        • Push-ups  
+        • Pull movements  
+        • Overhead press  
+        
+        Want a **weekly split**?
+        `;
           }
         
-          /* ---------------- BEGINNER ---------------- */
-          if (/beginner|start|new|first time/.test(msg)) {
-            return pick([
-              "Start small. Focus on consistency, not intensity.",
-              "Your first goal isn’t transformation — it’s building the habit.",
-              "Everyone starts somewhere. You’re already ahead by starting."
-            ]);
+          /* ---------- MOTIVATION ---------- */
+          if (/lazy|tired|no motivation|quit/.test(msg)) {
+            return `
+        Motivation is unreliable. Discipline isn’t.
+        
+        On low days:
+        ✔ Train lightly  
+        ✔ Walk  
+        ✔ Eat clean  
+        
+        Doing **something** is always better than quitting.
+        
+        Progress loves consistency, not intensity.
+        `;
           }
         
-          /* ---------------- MOTIVATION ---------------- */
-          if (/motivat|lazy|tired|quit|low energy/.test(msg)) {
-            return pick([
-              "Motivation comes and goes. Discipline is what gets results.",
-              "On low-energy days, just show up — even half effort counts.",
-              "Progress happens when you don’t feel like it. Keep going."
-            ]);
-          }
+          /* ---------- DEFAULT ---------- */
+          return `
+        Tell me your **exact goal** and your **current weight/height**.
         
-          /* ---------------- DEFAULT GPT-STYLE ---------------- */
-          return pick([
-            "Tell me your goal and I’ll guide you step by step.",
-            "What are you trying to improve right now?",
-            "I’m here to help — diet, workouts, fat loss, muscle, anything.",
-            "Fitness doesn’t need to be complicated. What do you want to work on?"
-          ]);
+        I’ll guide you step-by-step — no generic advice.
+        `;
         }
+
 
         /* ==================== CONTEXT MEMORY HELPERS ==================== */
 /* Add this block AFTER getLocalAIResponse() */
