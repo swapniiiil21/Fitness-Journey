@@ -2481,91 +2481,162 @@
         
         // ==================== LOCAL AI RESPONSES ====================
         function getLocalAIResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            
-            // Enhanced fitness responses
-            const responses = {
-                greeting: [
-                    "Hello! I'm Swapnil's AI Fitness Coach. I can help with diet plans, workout routines, weight loss tips, BMI explanations, and fitness motivation. What would you like to know?",
-                    "Hi there! Ready to transform your fitness? I'm here to help with personalized advice based on Swapnil's journey from 78kg to 53kg!",
-                    "Hey! I'm your AI fitness assistant. Ask me anything about workouts, nutrition, or weight loss strategies!"
-                ],
-                bmi: [
-                    "BMI (Body Mass Index) measures body fat based on height/weight. Categories: Underweight (<18.5), Normal (18.5-24.9), Overweight (25-29.9), Obese (≥30). Use the BMI calculator on this page! Remember, it's a screening tool - muscle mass and other factors also matter.",
-                    "BMI helps assess if your weight is healthy for your height. Calculate yours using our tool above! For personalized advice based on your BMI, just ask!",
-                    "Body Mass Index is a simple calculation: weight(kg) / height(m)². While useful, it doesn't account for muscle mass. Athletes may show as 'overweight' due to muscle!"
-                ],
-                diet: [
-                    "Based on Swapnil's journey: Focus on protein (chicken, eggs, lentils), reduce refined carbs, eat plenty of vegetables, stay hydrated (3-4L water daily). Sample day: Breakfast: Oats + eggs, Lunch: Chicken + veggies, Dinner: Fish + salad. Have planned cheat meals weekly!",
-                    "Swapnil's diet strategy: High protein (160g daily), moderate carbs, healthy fats. Eat every 3-4 hours. Drink water before meals. Prioritize whole foods over processed. Track your intake for best results!",
-                    "Nutrition tips: 1) Protein with every meal 2) Fill half your plate with veggies 3) Choose complex carbs (oats, brown rice) 4) Healthy fats (nuts, avocado) 5) Stay hydrated 6) Plan your meals ahead"
-                ],
-                workout: [
-                    "Swapnil's workout plan: 3-4 days strength training (squats, push-ups, rows), 2-3 days cardio (30 mins). Start with bodyweight exercises, progress to weights. Key: Progressive overload - gradually increase weight/reps. Rest 48 hours between training same muscles.",
-                    "Beginner routine: Monday: Upper body, Tuesday: Cardio, Wednesday: Lower body, Thursday: Active rest, Friday: Full body, Weekend: Recovery. Start with 3 days/week, build to 5.",
-                    "Effective workouts: Compound exercises first (squats, deadlifts, bench press). 3-4 sets of 8-12 reps. Cardio: 150 mins moderate or 75 mins vigorous weekly. Consistency > intensity!"
-                ],
-                weightLoss: [
-                    "Swapnil lost 25kg by: 1) Calorie deficit (eat 300-500 calories less than maintenance) 2) High protein diet (1.6g per kg body weight) 3) Daily activity 4) Strength training 3x/week 5) Reduced sugar 6) Consistency over perfection. Track progress weekly!",
-                    "Weight loss formula: Calories in < Calories out. Tips: 1) Eat protein first 2) Walk 10k steps daily 3) Strength train to preserve muscle 4) Sleep 7-8 hours 5) Manage stress 6) Be patient - aim for 0.5-1kg loss per week",
-                    "Fat loss strategies: 1) Create 20% calorie deficit 2) Protein at 2g/kg 3) Strength training 3x/week 4) Cardio 150 mins/week 5) Sleep well 6) Stay consistent for 12+ weeks"
-                ],
-                muscle: [
-                    "For muscle building: Aim for 1.6-2.2g protein per kg body weight daily. Sources: chicken, fish, eggs, paneer, lentils. Train each muscle 2-3x/week with progressive overload. Get 7-8 hours sleep for recovery. Supplements optional - focus on whole foods first.",
-                    "Muscle growth requires: 1) Progressive overload 2) Adequate protein 3) Calorie surplus (300-500 above maintenance) 4) Recovery (sleep!) 5) Consistency. Track your lifts - aim to increase weight/reps weekly.",
-                    "Build muscle naturally: 1) Compound lifts (squats, bench, rows) 2) 8-12 rep range 3) Protein every 3-4 hours 4) Rest days between workouts 5) Patience - visible results take 8-12 weeks"
-                ],
-                cardio: [
-                    "Cardio tips: Start with 20-30 mins brisk walking/jogging 3-4x/week. Best times: morning fasted for fat burning, or post-workout. Mix HIIT (high intensity interval training) and LISS (low intensity steady state). Increase duration gradually by 10% weekly.",
-                    "Effective cardio: 1) HIIT: 30 secs sprint, 60 secs walk x 10 2) LISS: 45-60 mins brisk walk 3) Mix it up: cycling, swimming, dancing 4) Track heart rate: aim for 70-85% of max (220 - age)",
-                    "Cardio for fat loss: Fasted morning cardio burns more fat. Post-workout cardio uses glycogen stores. 150 mins moderate or 75 mins vigorous weekly. Listen to your body!"
-                ],
-                beginner: [
-                    "Beginner plan: Week 1-2: Walk 20 mins daily + bodyweight exercises (squats, push-ups, planks). Week 3-4: Add light weights + increase cardio to 30 mins. Focus on form, not weight. Record workouts to track progress. Consistency > intensity!",
-                    "Starting out? 1) Walk daily 2) Bodyweight exercises 3x/week 3) Learn proper form 4) Track food intake 5) Set realistic goals 6) Celebrate small wins 7) Don't compare - everyone starts somewhere!",
-                    "First month: Focus on building habits, not transformations. 1) Exercise 3x/week 2) Drink more water 3) Add veggies to meals 4) Sleep 7+ hours 5) Be consistent - even 15 mins counts!"
-                ],
-                motivation: [
-                    "Swapnil's motivation tips: 1) Set SMART goals (Specific, Measurable, Achievable, Relevant, Time-bound) 2) Track progress with photos/measurements 3) Find accountability partner 4) Celebrate small wins 5) Remember your 'why' 6) Create routines, not just workouts.",
-                    "Stay motivated: 1) Track your progress 2) Reward milestones 3) Find workout buddy 4) Mix up routines 5) Focus on how you feel, not just looks 6) Remember why you started 7) Progress photos every 2 weeks",
-                    "Motivation fades, discipline stays. Create habits: 1) Schedule workouts 2) Prep meals 3) Sleep routine 4) Morning ritual 5) Accountability system 6) Visualize success 7) One day at a time!"
-                ],
-                default: [
-                    "I'm here to help with fitness advice! Ask me about: diet/nutrition plans, workout routines, weight loss strategies, muscle building, BMI calculations, or fitness motivation. You can also use the BMI calculator on this page!",
-                    "I specialize in fitness coaching based on Swapnil's transformation journey. Try asking about: 'How do I lose weight?' or 'What's a good beginner workout?' or 'How much protein do I need?'",
-                    "As your AI fitness coach, I can help with: 1) Personalized diet advice 2) Workout plans 3) Weight loss strategies 4) Muscle building tips 5) Motivation techniques 6) BMI explanations. What's your fitness goal?"
-                ]
-            };
-            
-            // Determine response category
-            let category = 'default';
-            
-            if (lowerMessage.includes('hi') || lowerMessage.includes('hello') || lowerMessage.includes('hey')) {
-                category = 'greeting';
-            } else if (lowerMessage.includes('bmi') || lowerMessage.includes('body mass')) {
-                category = 'bmi';
-            } else if (lowerMessage.includes('diet') || lowerMessage.includes('nutrition') || lowerMessage.includes('meal') || lowerMessage.includes('eat')) {
-                category = 'diet';
-            } else if (lowerMessage.includes('workout') || lowerMessage.includes('exercise') || lowerMessage.includes('gym') || lowerMessage.includes('train')) {
-                category = 'workout';
-            } else if (lowerMessage.includes('lose weight') || lowerMessage.includes('weight loss') || lowerMessage.includes('fat loss') || lowerMessage.includes('slim')) {
-                category = 'weightLoss';
-            } else if (lowerMessage.includes('protein') || lowerMessage.includes('muscle') || lowerMessage.includes('build') || lowerMessage.includes('gain')) {
-                category = 'muscle';
-            } else if (lowerMessage.includes('cardio') || lowerMessage.includes('running') || lowerMessage.includes('walking') || lowerMessage.includes('jog')) {
-                category = 'cardio';
-            } else if (lowerMessage.includes('beginner') || lowerMessage.includes('start') || lowerMessage.includes('new') || lowerMessage.includes('first')) {
-                category = 'beginner';
-            } else if (lowerMessage.includes('motivation') || lowerMessage.includes('consist') || lowerMessage.includes('stick') || lowerMessage.includes('quit')) {
-                category = 'motivation';
+          const msg = message.toLowerCase().trim();
+          const bmi = getLastBMI();
+          const bf = getLastBodyFat();
+        
+          const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+        
+          /* ---------------- GREETINGS ---------------- */
+          if (/^(hi|hello|hey|yo|hii|heyy|hola|sup|what's up)/.test(msg)) {
+            return pick([
+              "Hey 👋 How can I help you with your fitness today?",
+              "Hi! 😊 What are you working on right now — fat loss, muscle gain, or overall fitness?",
+              "Hello! I'm here to help you train smarter, not harder. What’s on your mind?",
+              "Hey there! Ready to level up your fitness? Ask me anything.",
+              "Hi! Think of me as your digital fitness coach — how can I help?"
+            ]);
+          }
+        
+          /* ---------------- SMALL TALK ---------------- */
+          if (/how are you|how r u|how you doing/.test(msg)) {
+            return pick([
+              "I'm doing great — thanks for asking! 💪 How are *you* feeling today?",
+              "All good here! Ready to help you stay consistent. How’s your energy today?",
+              "Feeling motivated! 😄 What’s your fitness goal right now?"
+            ]);
+          }
+        
+          /* ---------------- GOODBYE ---------------- */
+          if (/bye|goodbye|see you|later|gtg|talk later/.test(msg)) {
+            return pick([
+              "Bye! 👋 Stay consistent and come back anytime you need guidance.",
+              "Take care! Remember — small steps daily make big changes.",
+              "See you! 💪 Keep pushing, even on low-motivation days.",
+              "Goodbye! Don’t forget to hydrate and move today 😄"
+            ]);
+          }
+        
+          /* ---------------- THANK YOU ---------------- */
+          if (/thanks|thank you|thx/.test(msg)) {
+            return pick([
+              "You’re welcome! 😊 Happy to help anytime.",
+              "Anytime! Let me know if you need more guidance.",
+              "Glad I could help — keep going 💪"
+            ]);
+          }
+        
+          /* ---------------- BMI ---------------- */
+          if (msg.includes("bmi")) {
+            if (bmi) {
+              return `Your BMI is ${bmi}. BMI gives a rough idea, but body fat % tells the real story. Want advice based on your numbers?`;
             }
-            
-            // Get random response from category
-            const categoryResponses = responses[category];
-            const randomIndex = Math.floor(Math.random() * categoryResponses.length);
-            
-            return categoryResponses[randomIndex];
+            return "BMI compares weight to height. Normal range is 18.5–24.9. Calculate yours above and I’ll explain it.";
+          }
+        
+          /* ---------------- BODY FAT ---------------- */
+          if (msg.includes("body fat")) {
+            if (bf) {
+              return `Your estimated body fat is ${bf}%. That visually falls into the ${getBFCategory(bf)} range. Want to move to a leaner category?`;
+            }
+            return "Body fat % shows how lean you actually are. It’s more accurate than BMI. Use the calculator above and ask me again.";
+          }
+        
+          /* ---------------- FAT LOSS ---------------- */
+          if (/fat loss|lose fat|cut|weight loss|slim/.test(msg)) {
+            return pick([
+              "Fat loss comes down to a calorie deficit, high protein, strength training, and patience.",
+              "You don’t need extreme dieting. Focus on protein, steps, sleep, and lifting weights.",
+              "Fat loss works best when habits are sustainable. Want a simple daily routine?"
+            ]);
+          }
+        
+          /* ---------------- MUSCLE ---------------- */
+          if (/muscle|gain|bulk|build muscle/.test(msg)) {
+            return pick([
+              "To build muscle: progressive overload, enough food, enough protein, and recovery.",
+              "Lift weights consistently and aim to get slightly stronger every week.",
+              "Muscle growth is slow but predictable — stay patient and track progress."
+            ]);
+          }
+        
+          /* ---------------- DIET ---------------- */
+          if (/diet|eat|food|nutrition/.test(msg)) {
+            return pick([
+              "Keep diet simple: protein first, vegetables second, carbs based on activity.",
+              "You don’t need fancy foods — consistency matters more than perfection.",
+              "If hunger is an issue, protein + fiber + water helps a lot."
+            ]);
+          }
+        
+          /* ---------------- WORKOUT ---------------- */
+          if (/workout|exercise|gym|training/.test(msg)) {
+            return pick([
+              "Strength training 3–4x/week + daily movement works for most people.",
+              "Even 20–30 minutes of focused training is enough if done consistently.",
+              "Compound exercises give the most results in the least time."
+            ]);
+          }
+        
+          /* ---------------- BEGINNER ---------------- */
+          if (/beginner|start|new|first time/.test(msg)) {
+            return pick([
+              "Start small. Focus on consistency, not intensity.",
+              "Your first goal isn’t transformation — it’s building the habit.",
+              "Everyone starts somewhere. You’re already ahead by starting."
+            ]);
+          }
+        
+          /* ---------------- MOTIVATION ---------------- */
+          if (/motivat|lazy|tired|quit|low energy/.test(msg)) {
+            return pick([
+              "Motivation comes and goes. Discipline is what gets results.",
+              "On low-energy days, just show up — even half effort counts.",
+              "Progress happens when you don’t feel like it. Keep going."
+            ]);
+          }
+        
+          /* ---------------- DEFAULT GPT-STYLE ---------------- */
+          return pick([
+            "Tell me your goal and I’ll guide you step by step.",
+            "What are you trying to improve right now?",
+            "I’m here to help — diet, workouts, fat loss, muscle, anything.",
+            "Fitness doesn’t need to be complicated. What do you want to work on?"
+          ]);
         }
+
+        /* ==================== CONTEXT MEMORY HELPERS ==================== */
+/* Add this block AFTER getLocalAIResponse() */
+/* And BEFORE addMessageToChat() */
+        
+        function getLastBMI() {
+          const el = document.getElementById("bmi-result");
+          if (!el) return null;
+        
+          // Match BMI number like 22.4
+          const match = el.innerText.match(/(\d+(\.\d+)?)/);
+          return match ? match[1] : null;
+        }
+        
+        function getLastBodyFat() {
+          const el = document.getElementById("bodyfat-result");
+          if (!el) return null;
+        
+          // Match body fat like 15.2%
+          const match = el.innerText.match(/(\d+(\.\d+)?)%/);
+          return match ? match[1] : null;
+        }
+        
+        function getBFCategory(bf) {
+          bf = parseFloat(bf);
+        
+          if (bf < 8) return "very lean";
+          if (bf < 14) return "athletic";
+          if (bf < 18) return "fit";
+          if (bf < 25) return "average";
+          return "overweight";
+        }
+
         
         // Add message to chat UI
         function addMessageToChat(message, sender) {
