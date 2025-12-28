@@ -948,36 +948,59 @@
             justify-content: space-between;
             align-items: center;
         }
+
+
         
         #chat-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent), #c0392b);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.5);
-            z-index: 9998;
-            transition: all 0.3s ease;
-            border: none;
+          position: fixed;
+          bottom: 120px; /* moved up from footer */
+          right: 30px;
+          width: 60px;
+          height: 60px;
+          background: linear-gradient(135deg, #ff4d4d, #ff784d);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-size: 26px;
+          cursor: pointer;
+          z-index: 9999;
+          box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+          transition: transform 0.25s ease;
         }
         
         #chat-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.7);
+          transform: scale(1.1);
         }
+
         
         #chat-toggle.chat-open {
             bottom: 320px;
             transform: rotate(90deg);
         }
+        
+                /* Chat Hint Bubble */
+        #chat-hint {
+          position: fixed;
+          bottom: 190px; /* sits above chat button */
+          right: 30px;
+          background: #ffffff;
+          color: #111;
+          padding: 10px 14px;
+          border-radius: 16px;
+          font-size: 14px;
+          font-weight: 500;
+          box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+          z-index: 9998;
+          animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+          0%,100% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
+        }
+
         
         #chat-body {
             height: 300px;
@@ -2000,6 +2023,11 @@
             </div>
         </div>
     </footer>
+
+        <!-- Chat Hint Bubble -->
+    <div id="chat-hint">
+      💬 Chat with me for free fitness tips
+    </div>
 
     <button id="chat-toggle">
         <i class="fas fa-robot"></i>
