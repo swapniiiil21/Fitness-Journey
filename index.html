@@ -2485,221 +2485,135 @@
         function getLocalAIResponse(message) {
           const msg = message.toLowerCase().trim();
         
-          /* ---------- GREETING ---------- */
+          /* ===== GREETING ===== */
           if (/^(hi|hello|hey|hii|heyy)/.test(msg)) {
             return `
-        Hey 👋  
-        I’m your AI fitness coach, built around Swapnil’s real transformation.
+        Hello. I’m your AI fitness coach, built around Swapnil’s real transformation from 78kg to 53kg.
         
-        You can ask me about:
-        • Diet & nutrition  
+        I can help you with:
+        • Diet and nutrition  
         • Muscle building  
         • Fat loss  
-        • BMI & body fat  
+        • BMI and body fat  
         • Beginner routines  
         
-        What’s your goal right now?
+        What would you like help with today?
         `;
           }
         
-          /* ---------- DIET & NUTRITION ---------- */
-          if (/diet|nutrition|food|eat/.test(msg)) {
-            return `
-        Diet is **80% of your results**, not workouts.
-        
-        Here’s what actually works (based on Swapnil’s journey):
-        
-        🔹 **Protein first**  
-        Protein preserves muscle, controls hunger, and boosts fat loss.
-        
-        🔹 **Carbs are not evil**  
-        Carbs should match activity.  
-        Training day → more carbs  
-        Rest day → fewer carbs
-        
-        🔹 **Simple foods win**  
-        Chicken, eggs, oats, rice, fruits, vegetables — no fancy stuff.
-        
-        🔹 **Consistency > perfection**  
-        Eating 80% clean daily beats extreme dieting for 1 week.
-        
-        If you want, tell me:
-        • fat loss diet  
-        • muscle gain diet  
-        • veg or non-veg  
-        `;
-          }
-        
-          /* ---------- SWAPNIL DIET ---------- */
+          /* ===== SWAPNIL DIET ===== */
           if (/swapnil.*diet|your diet|swapnil diet/.test(msg)) {
             return `
-        This is the **exact style of diet Swapnil followed** 👇
+        This is the diet structure Swapnil followed during his fat loss phase:
         
-        🍳 **Breakfast**  
-        Oats + egg whites + 2 whole eggs  
-        → Energy + protein without heavy calories
+        Breakfast:
+        Oats with egg whites and two whole eggs  
+        Purpose: energy + protein without excess calories
         
-        🥤 **Post workout**  
+        Post-workout:
         Whey protein  
-        → Fast muscle recovery
+        Purpose: faster recovery and muscle protection
         
-        🍗 **Lunch**  
-        200g chicken + 1 chapati + egg whites  
-        → High protein, controlled carbs
+        Lunch:
+        200g chicken, one chapati, egg whites  
+        Purpose: high protein with controlled carbohydrates
         
-        🍽 **Dinner**  
-        Same as lunch (simple & repeatable)
+        Dinner:
+        Same as lunch to maintain simplicity and consistency
         
-        ⚠️ Important:
-        This worked because calories were controlled and protein was high.
-        Not magic — just discipline.
-        
-        Want this adjusted for **your body weight**?
+        This approach worked because calories were controlled and protein intake was high.
+        If you want, I can adjust this plan based on your body weight.
         `;
           }
         
-          /* ---------- WEIGHT LOSS ---------- */
-          if (/weight loss|fat loss|lose weight|cut/.test(msg)) {
+          /* ===== DIET & NUTRITION ===== */
+          if (/diet|nutrition|food|eat/.test(msg)) {
             return `
-        Fat loss is simple — but not easy.
+        Diet accounts for most fitness results.
         
-        Here’s the truth 👇
+        Key principles that actually work:
         
-        🔥 **Calorie deficit**  
-        You must burn more than you eat (small deficit only).
+        Protein first:
+        Helps control hunger, preserves muscle, and improves fat loss.
         
-        🥩 **High protein**  
-        Prevents muscle loss and keeps metabolism high.
+        Carbohydrates are tools:
+        Higher on training days, lower on rest days.
         
-        🏋️ **Strength training**  
-        Fat loss without weights = skinny + weak.
+        Whole foods matter:
+        Eggs, chicken, rice, oats, fruits, vegetables.
         
-        🚶 **Daily movement**  
-        Steps matter more than extreme cardio.
+        Hydration:
+        Low water intake often feels like hunger or fatigue.
         
-        ⚠️ Avoid:
-        • Crash dieting  
-        • Skipping meals  
-        • Over-cardio  
-        
-        Want a **daily fat-loss routine**?
+        Consistency matters more than perfection.
+        Would you like a fat loss or muscle gain diet plan?
         `;
           }
         
-          /* ---------- MUSCLE BUILDING ---------- */
-          if (/muscle build|build muscle|gain muscle|bulking/.test(msg)) {
+          /* ===== BMI ===== */
+          if (/bmi/.test(msg)) {
             return `
-        Muscle building requires **patience + structure**.
+        BMI is calculated as weight divided by height squared.
         
-        What actually builds muscle 👇
+        Normal range: 18.5 to 24.9
         
-        🏋️ **Progressive overload**  
-        Try to lift slightly heavier or do more reps weekly.
+        BMI is a screening tool only. It does not account for:
+        • Muscle mass
+        • Fat percentage
+        • Fitness level
         
-        🍽 **Enough calories**  
-        No food = no muscle.
-        
-        🥩 **Protein intake**  
-        1.6–2g per kg bodyweight.
-        
-        😴 **Recovery**  
-        Muscles grow when you rest, not when you train.
-        
-        Muscle gain is slow — but predictable.
-        
-        Tell me:
-        • Home or gym?  
-        • Beginner or experienced?
+        Body fat percentage gives a more accurate picture.
+        Calculate your BMI above and I’ll help interpret it.
         `;
           }
         
-          /* ---------- MUSCLE WITHOUT LOSING WEIGHT ---------- */
-          if (/muscle.*without.*weight|maintain weight|recomposition/.test(msg)) {
+          /* ===== MUSCLE BUILDING ===== */
+          if (/muscle|build muscle|muscle building/.test(msg)) {
             return `
-        What you’re asking is **BODY RECOMPOSITION** 💡  
-        (lose fat + gain muscle at the same weight)
+        Muscle building requires structure and patience.
         
-        How to do it correctly 👇
+        What actually drives muscle growth:
         
-        ✔ Eat at **maintenance calories**  
-        ✔ High protein (2g/kg)  
-        ✔ Strength train 4x/week  
-        ✔ Limit excessive cardio  
+        Progressive strength training  
+        Adequate calorie intake  
+        Protein intake of 1.6–2g per kg body weight  
+        Proper recovery and sleep  
         
-        Result:
-        Fat ↓  
-        Muscle ↑  
-        Weight ≈ same  
-        
-        This is exactly how beginners should train.
-        
-        Want a **recomp workout split**?
+        Muscle growth is slow but predictable when done correctly.
+        Tell me whether you train at home or in a gym.
         `;
           }
         
-          /* ---------- BMI ---------- */
-          if (msg.includes("bmi")) {
+          /* ===== WEIGHT LOSS ===== */
+          if (/weight loss|fat loss|lose weight/.test(msg)) {
             return `
-        BMI = weight ÷ height²
+        Fat loss works when the process is sustainable.
         
-        📊 Normal range: **18.5 – 24.9**
+        The correct approach:
         
-        But listen carefully 👇  
-        BMI doesn’t show:
-        • muscle mass  
-        • fat distribution  
-        • fitness level  
+        Small calorie deficit  
+        High protein intake  
+        Strength training  
+        Daily movement  
+        Adequate sleep  
         
-        That’s why **body fat % is better**.
-        
-        Calculate BMI above — I’ll explain what it means for YOU.
+        Avoid crash dieting, skipping meals, or excessive cardio.
+        If you want, I can give you a daily fat loss routine.
         `;
           }
         
-          /* ---------- WORKOUT ---------- */
-          if (/workout|exercise|gym|training/.test(msg)) {
-            return `
-        You don’t need fancy workouts.
-        
-        A smart routine looks like this 👇
-        
-        🏋️ Strength training: 3–4 days  
-        🚶 Steps: 7–10k daily  
-        ⏱ Session: 45–60 minutes  
-        
-        Focus on:
-        • Squats  
-        • Push-ups  
-        • Pull movements  
-        • Overhead press  
-        
-        Want a **weekly split**?
-        `;
+          /* ===== GOODBYE ===== */
+          if (/bye|goodbye/.test(msg)) {
+            return "Take care. Stay consistent and feel free to return whenever you need guidance.";
           }
         
-          /* ---------- MOTIVATION ---------- */
-          if (/lazy|tired|no motivation|quit/.test(msg)) {
-            return `
-        Motivation is unreliable. Discipline isn’t.
-        
-        On low days:
-        ✔ Train lightly  
-        ✔ Walk  
-        ✔ Eat clean  
-        
-        Doing **something** is always better than quitting.
-        
-        Progress loves consistency, not intensity.
-        `;
-          }
-        
-          /* ---------- DEFAULT ---------- */
+          /* ===== DEFAULT ===== */
           return `
-        Tell me your **exact goal** and your **current weight/height**.
-        
-        I’ll guide you step-by-step — no generic advice.
+        Tell me your current goal along with your height and weight.
+        I’ll guide you step by step without generic advice.
         `;
         }
+        
 
 
         /* ==================== CONTEXT MEMORY HELPERS ==================== */
