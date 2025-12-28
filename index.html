@@ -2715,18 +2715,7 @@
             // Initialize chatbot
             initChatbot();
             
-            // Add floating animations
-            const floatingElements = document.querySelectorAll('.floating');
-            floatingElements.forEach((element, index) => {
-                element.style.opacity = '0';
-                element.style.transform = 'translateY(20px) translateZ(20px)';
-                element.style.transition = `opacity 0.5s ease-out ${index * 0.1}s, transform 0.5s ease-out ${index * 0.1}s`;
-                
-                setTimeout(() => {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0) translateZ(20px)';
-                }, 100);
-            });
+            
             
             // Image fallback
             document.querySelectorAll('img').forEach(img => {
